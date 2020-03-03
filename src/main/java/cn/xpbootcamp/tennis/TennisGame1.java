@@ -59,28 +59,23 @@ public class TennisGame1 implements TennisGame {
     private String getGameResultWhenAnyPlayerScoreOverFourPoint() {
         int minusResult = player1.getScore() - player2.getScore();
         if (minusResult == 1) {
-            return ("Advantage player1");
+            return "Advantage player1";
         }
         if (minusResult == -1) {
-            return ("Advantage player2");
+            return "Advantage player2";
         }
         if (minusResult >= 2) {
-            return ("Win for player1");
+            return "Win for player1";
         }
-        return ("Win for player2");
+        return "Win for player2";
     }
 
     private String getGameResultWhenScoreIsSame() {
-        switch (player1.getScore()) {
-            case 0:
-                return "Love-All";
-            case 1:
-                return "Fifteen-All";
-            case 2:
-                return "Thirty-All";
-            default:
-                return "Deuce";
+        int currentScore = player1.getScore();
+        if (currentScore < 3) {
+            return getSpecialGradeByScore(currentScore) + "-All";
         }
+        return "Deuce";
     }
 
     private boolean anyPlayerScoreOverFourPoint() {
