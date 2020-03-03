@@ -11,25 +11,27 @@ public class TennisGame3 implements TennisGame {
     }
 
     public String getGameResult() {
-        String s;
-        int player1Score = player1.getScore();
-        int player2Score = player2.getScore();
         if (isSameScore()) {
             return getGameResultWhenScoreIsSame();
         }
 
-        if (player1Score < 4 && player2Score < 4 && !(player1Score + player2Score == 6)) {
-            return getSpecialGradeByScore(player1Score) + "-" + getSpecialGradeByScore(
-                player2Score);
+        if (noWinnerAndAdvantage()) {
+            return getSpecialGradeByScore(player1.getScore()) + "-" + getSpecialGradeByScore(
+                player2.getScore());
         }
 
         String winOrAdvantagePlayerName =
-            player1Score > player2Score ? player1.getName() : player2.getName();
+            player1.getScore() > player2.getScore() ? player1.getName() : player2.getName();
 
-        if (onePlayerIsAdvantage(player1Score, player2Score)) {
+        if (onePlayerIsAdvantage()) {
             return "Advantage " + winOrAdvantagePlayerName;
         }
         return "Win for " + winOrAdvantagePlayerName;
+    }
+
+    private boolean noWinnerAndAdvantage() {
+        return player1.getScore() < 4 && player2.getScore() < 4 && !(
+            player1.getScore() + player2.getScore() == 6);
     }
 
     private String getGameResultWhenScoreIsSame() {
@@ -43,8 +45,8 @@ public class TennisGame3 implements TennisGame {
         return player1.getScore() == player2.getScore();
     }
 
-    private boolean onePlayerIsAdvantage(int player1Score, int player2Score) {
-        return (player1Score - player2Score) * (player1Score - player2Score) == 1;
+    private boolean onePlayerIsAdvantage() {
+        return (player1.getScore() - player2.getScore()) * (player1.getScore() - player2.getScore()) == 1;
     }
 
     public void wonPoint(String playerName) {
