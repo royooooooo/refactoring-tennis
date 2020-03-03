@@ -17,20 +17,8 @@ public class TennisGame2 implements TennisGame {
 
     public String getGameResult() {
         String score = "";
-        if (P1point == P2point && P1point < 4) {
-            if (P1point == 0) {
-                score = "Love";
-            }
-            if (P1point == 1) {
-                score = "Fifteen";
-            }
-            if (P1point == 2) {
-                score = "Thirty";
-            }
-            score += "-All";
-        }
-        if (P1point == P2point && P1point >= 3) {
-            score = "Deuce";
+        if (playerScoreIsSame()) {
+            score = getGameResultWhenScoreIsSame();
         }
 
         if (P1point > 0 && P2point == 0) {
@@ -108,6 +96,32 @@ public class TennisGame2 implements TennisGame {
             score = "Win for player2";
         }
         return score;
+    }
+
+    private String getGameResultWhenScoreIsSame() {
+        if (P1point < 3) {
+            return getSpecialGradeByScore(P1point) + "-All";
+        }
+        return "Deuce";
+    }
+
+    private boolean playerScoreIsSame() {
+        return P1point == P2point;
+    }
+
+    private String getSpecialGradeByScore(int score) {
+        switch (score) {
+            case 0:
+                return "Love";
+            case 1:
+                return "Fifteen";
+            case 2:
+                return "Thirty";
+            case 3:
+                return "Forty";
+            default:
+                return "";
+        }
     }
 
     public void P1Score() {
