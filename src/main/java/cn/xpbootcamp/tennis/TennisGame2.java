@@ -11,34 +11,34 @@ public class TennisGame2 implements TennisGame {
     }
 
     public String getGameResult() {
-        int P1point = player1.getScore();
-        int P2point = player2.getScore();
+        int player1Score = player1.getScore();
+        int player2Score = player2.getScore();
         String gameResult = "";
         if (playerScoreIsSame()) {
             return getGameResultWhenScoreIsSame();
         }
 
-        if (oneScoreIsOver0AndAnotherIs0(P1point, P2point)) {
-            gameResult += getSpecialGradeByScore(P1point) + "-" + getSpecialGradeByScore(P2point);
+        if (oneScoreIsOver0AndAnotherIs0(player1Score, player2Score)) {
+            gameResult += getSpecialGradeByScore(player1Score) + "-" + getSpecialGradeByScore(player2Score);
         }
 
         if (oneScoreIsOverAnotherButLessThan4(
-            P1point, P2point)) {
-            gameResult = getSpecialGradeByScore(P1point) + "-" + getSpecialGradeByScore(P2point);
+            player1Score, player2Score)) {
+            gameResult = getSpecialGradeByScore(player1Score) + "-" + getSpecialGradeByScore(player2Score);
         }
 
-        if (P1point > P2point && P2point >= 3) {
+        if (player1Score > player2Score && player2Score >= 3) {
             gameResult = "Advantage player1";
         }
 
-        if (P2point > P1point && P1point >= 3) {
+        if (player2Score > player1Score && player1Score >= 3) {
             gameResult = "Advantage player2";
         }
 
-        if (P1point >= 4 && P2point >= 0 && (P1point - P2point) >= 2) {
+        if (player1Score >= 4 && player2Score >= 0 && (player1Score - player2Score) >= 2) {
             gameResult = "Win for player1";
         }
-        if (P2point >= 4 && P1point >= 0 && (P2point - P1point) >= 2) {
+        if (player2Score >= 4 && player1Score >= 0 && (player2Score - player1Score) >= 2) {
             gameResult = "Win for player2";
         }
         return gameResult;
