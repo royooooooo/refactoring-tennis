@@ -26,7 +26,7 @@ public class TennisGame1 implements TennisGame {
         }
     }
 
-    public String getScore() {
+    public String getGameResult() {
         if (playerScoreIsSame()) {
             return getGameResultWhenScoreIsSame();
         }
