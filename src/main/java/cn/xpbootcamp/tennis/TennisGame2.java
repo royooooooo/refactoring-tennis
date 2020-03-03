@@ -13,35 +13,35 @@ public class TennisGame2 implements TennisGame {
     public String getGameResult() {
         int P1point = player1.getScore();
         int P2point = player2.getScore();
-        String score = "";
+        String gameResult = "";
         if (playerScoreIsSame()) {
             return getGameResultWhenScoreIsSame();
         }
 
         if (oneScoreIsOver0AndAnotherIs0(P1point, P2point)) {
-            score += getSpecialGradeByScore(P1point) + "-" + getSpecialGradeByScore(P2point);
+            gameResult += getSpecialGradeByScore(P1point) + "-" + getSpecialGradeByScore(P2point);
         }
 
         if (oneScoreIsOverAnotherButLessThan4(
             P1point, P2point)) {
-            score = getSpecialGradeByScore(P1point) + "-" + getSpecialGradeByScore(P2point);
+            gameResult = getSpecialGradeByScore(P1point) + "-" + getSpecialGradeByScore(P2point);
         }
 
         if (P1point > P2point && P2point >= 3) {
-            score = "Advantage player1";
+            gameResult = "Advantage player1";
         }
 
         if (P2point > P1point && P1point >= 3) {
-            score = "Advantage player2";
+            gameResult = "Advantage player2";
         }
 
         if (P1point >= 4 && P2point >= 0 && (P1point - P2point) >= 2) {
-            score = "Win for player1";
+            gameResult = "Win for player1";
         }
         if (P2point >= 4 && P1point >= 0 && (P2point - P1point) >= 2) {
-            score = "Win for player2";
+            gameResult = "Win for player2";
         }
-        return score;
+        return gameResult;
     }
 
     private boolean oneScoreIsOverAnotherButLessThan4(int onePlayerScore, int anotherPlayerScore) {
