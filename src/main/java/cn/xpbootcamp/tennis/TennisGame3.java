@@ -20,13 +20,13 @@ public class TennisGame3 implements TennisGame {
                 player2.getScore());
         }
 
-        String winOrAdvantagePlayerName =
+        String highestScorePlayerName =
             player1.getScore() > player2.getScore() ? player1.getName() : player2.getName();
 
         if (onePlayerIsAdvantage()) {
-            return "Advantage " + winOrAdvantagePlayerName;
+            return "Advantage " + highestScorePlayerName;
         }
-        return "Win for " + winOrAdvantagePlayerName;
+        return "Win for " + highestScorePlayerName;
     }
 
     private boolean noWinnerAndAdvantage() {
