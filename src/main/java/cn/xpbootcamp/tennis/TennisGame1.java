@@ -37,31 +37,23 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String getGameResultWhenNormalWay() {
-        StringBuilder score = new StringBuilder();
-        int tempScore;
-        for (int i = 1; i < 3; i++) {
-            if (i == 1) {
-                tempScore = player1.getScore();
-            } else {
-                score.append("-");
-                tempScore = player2.getScore();
-            }
-            switch (tempScore) {
-                case 0:
-                    score.append("Love");
-                    break;
-                case 1:
-                    score.append("Fifteen");
-                    break;
-                case 2:
-                    score.append("Thirty");
-                    break;
-                case 3:
-                    score.append("Forty");
-                    break;
-            }
+        return getSpecialGradeByScore(player1.getScore()) + "-" + getSpecialGradeByScore(
+            player2.getScore());
+    }
+
+    private String getSpecialGradeByScore(int score) {
+        switch (score) {
+            case 0:
+                return "Love";
+            case 1:
+                return "Fifteen";
+            case 2:
+                return "Thirty";
+            case 3:
+                return "Forty";
+            default:
+                return "";
         }
-        return score.toString();
     }
 
     private String getGameResultWhenAnyPlayerScoreOverFourPoint() {
