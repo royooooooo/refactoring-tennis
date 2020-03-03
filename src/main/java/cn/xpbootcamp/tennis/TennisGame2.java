@@ -17,24 +17,32 @@ public class TennisGame2 implements TennisGame {
             return getGameResultWhenScoreIsSame();
         }
 
-        if (player1Score >= 4 && player2Score >= 0 && (player1Score - player2Score) >= 2) {
+        if (onePlayerIsWin(player1Score, player2Score)) {
             return "Win for player1";
         }
-        if (player2Score >= 4 && player1Score >= 0 && (player2Score - player1Score) >= 2) {
+        if (onePlayerIsWin(player2Score, player1Score)) {
             return "Win for player2";
         }
 
-        if (player1Score > player2Score && player2Score >= 3) {
+        if (onePlayerIsAdvantage(player1Score, player2Score)) {
             return "Advantage player1";
         }
 
-        if (player2Score > player1Score && player1Score >= 3) {
+        if (onePlayerIsAdvantage(player2Score, player1Score)) {
             return "Advantage player2";
         }
 
         return
             getSpecialGradeByScore(player1Score) + "-" + getSpecialGradeByScore(player2Score);
 
+    }
+
+    private boolean onePlayerIsAdvantage(int player1Score, int player2Score) {
+        return player1Score > player2Score && player2Score >= 3;
+    }
+
+    private boolean onePlayerIsWin(int player1Score, int player2Score) {
+        return player1Score >= 4 && player2Score >= 0 && (player1Score - player2Score) >= 2;
     }
 
     private String getGameResultWhenScoreIsSame() {
