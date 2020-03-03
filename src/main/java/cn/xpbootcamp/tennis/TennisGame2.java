@@ -2,20 +2,17 @@ package cn.xpbootcamp.tennis;
 
 public class TennisGame2 implements TennisGame {
 
-    public int P1point = 0;
-    public int P2point = 0;
-
-    public String P1res = "";
-    public String P2res = "";
-    private String player1Name;
-    private String player2Name;
+    private Player player1;
+    private Player player2;
 
     public TennisGame2(String player1Name, String player2Name) {
-        this.player1Name = player1Name;
-        this.player2Name = player2Name;
+        this.player1 = new Player(player1Name);
+        this.player2 = new Player(player2Name);
     }
 
     public String getGameResult() {
+        int P1point = player1.getScore();
+        int P2point = player2.getScore();
         String score = "";
         if (playerScoreIsSame()) {
             return getGameResultWhenScoreIsSame();
@@ -58,14 +55,14 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String getGameResultWhenScoreIsSame() {
-        if (P1point < 3) {
-            return getSpecialGradeByScore(P1point) + "-All";
+        if (player1.getScore() < 3) {
+            return getSpecialGradeByScore(player1.getScore()) + "-All";
         }
         return "Deuce";
     }
 
     private boolean playerScoreIsSame() {
-        return P1point == P2point;
+        return player1.getScore() == player2.getScore();
     }
 
     private String getSpecialGradeByScore(int score) {
@@ -83,19 +80,11 @@ public class TennisGame2 implements TennisGame {
         }
     }
 
-    public void P1Score() {
-        P1point++;
-    }
-
-    public void P2Score() {
-        P2point++;
-    }
-
-    public void wonPoint(String player) {
-        if (player.equals("player1")) {
-            P1Score();
+    public void wonPoint(String playerName) {
+        if (playerName.equals(player1.getName())) {
+            player1.wonPoint();
         } else {
-            P2Score();
+            player2.wonPoint();
         }
     }
 }
