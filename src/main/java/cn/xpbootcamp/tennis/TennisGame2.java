@@ -13,43 +13,28 @@ public class TennisGame2 implements TennisGame {
     public String getGameResult() {
         int player1Score = player1.getScore();
         int player2Score = player2.getScore();
-        String gameResult = "";
         if (playerScoreIsSame()) {
             return getGameResultWhenScoreIsSame();
         }
 
-        if (oneScoreIsOver0AndAnotherIs0(player1Score, player2Score) ||
-            oneScoreIsOverAnotherButLessThan4(
-                player1Score, player2Score)) {
-            gameResult +=
-                getSpecialGradeByScore(player1Score) + "-" + getSpecialGradeByScore(player2Score);
+        if (player1Score >= 4 && player2Score >= 0 && (player1Score - player2Score) >= 2) {
+            return "Win for player1";
+        }
+        if (player2Score >= 4 && player1Score >= 0 && (player2Score - player1Score) >= 2) {
+            return "Win for player2";
         }
 
         if (player1Score > player2Score && player2Score >= 3) {
-            gameResult = "Advantage player1";
+            return "Advantage player1";
         }
 
         if (player2Score > player1Score && player1Score >= 3) {
-            gameResult = "Advantage player2";
+            return "Advantage player2";
         }
 
-        if (player1Score >= 4 && player2Score >= 0 && (player1Score - player2Score) >= 2) {
-            gameResult = "Win for player1";
-        }
-        if (player2Score >= 4 && player1Score >= 0 && (player2Score - player1Score) >= 2) {
-            gameResult = "Win for player2";
-        }
-        return gameResult;
-    }
+        return
+            getSpecialGradeByScore(player1Score) + "-" + getSpecialGradeByScore(player2Score);
 
-    private boolean oneScoreIsOverAnotherButLessThan4(int onePlayerScore, int anotherPlayerScore) {
-        return (onePlayerScore > anotherPlayerScore && onePlayerScore < 4) || (
-            anotherPlayerScore > onePlayerScore && anotherPlayerScore < 4);
-    }
-
-    private boolean oneScoreIsOver0AndAnotherIs0(int onePlayerScore, int anotherPlayerScore) {
-        return (onePlayerScore > 0 && anotherPlayerScore == 0) || (anotherPlayerScore > 0
-            && onePlayerScore == 0);
     }
 
     private String getGameResultWhenScoreIsSame() {
