@@ -15,17 +15,26 @@ public class TennisGame3 implements TennisGame {
         int player1Score = player1.getScore();
         int player2Score = player2.getScore();
         if (player1Score < 4 && player2Score < 4 && !(player1Score + player2Score == 6)) {
-            String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
-            s = p[player1Score];
-            return (player1Score == player2Score) ? s + "-All" : s + "-" + p[player2Score];
-        } else {
             if (player1Score == player2Score) {
-                return "Deuce";
+                return getSpecialGradeByScore(player1Score) + "-All";
             }
-            s = player1Score > player2Score ? player1.getName() : player2.getName();
-            return ((player1Score - player2Score) * (player1Score - player2Score) == 1) ?
-                "Advantage " + s : "Win for " + s;
+            return getSpecialGradeByScore(player1Score) + "-" + getSpecialGradeByScore(
+                player2Score);
         }
+
+        if (player1Score == player2Score) {
+            return "Deuce";
+        }
+        String winOrAdvantagePlayerName =
+            player1Score > player2Score ? player1.getName() : player2.getName();
+        if (onePlayerIsAdvantage(player1Score, player2Score)) {
+            return "Advantage " + winOrAdvantagePlayerName;
+        }
+        return "Win for " + winOrAdvantagePlayerName;
+    }
+
+    private boolean onePlayerIsAdvantage(int player1Score, int player2Score) {
+        return (player1Score - player2Score) * (player1Score - player2Score) == 1;
     }
 
     public void wonPoint(String playerName) {
@@ -35,6 +44,21 @@ public class TennisGame3 implements TennisGame {
             player2.wonPoint();
         }
 
+    }
+
+    private String getSpecialGradeByScore(int score) {
+        switch (score) {
+            case 0:
+                return "Love";
+            case 1:
+                return "Fifteen";
+            case 2:
+                return "Thirty";
+            case 3:
+                return "Forty";
+            default:
+                return "";
+        }
     }
 
 }
