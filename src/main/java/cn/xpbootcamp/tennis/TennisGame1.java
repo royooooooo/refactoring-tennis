@@ -10,14 +10,6 @@ public class TennisGame1 implements TennisGame {
         this.player2 = new Player(player2Name);
     }
 
-    public Player getPlayer1() {
-        return player1;
-    }
-
-    public Player getPlayer2() {
-        return player2;
-    }
-
     public void wonPoint(String playerName) {
         if (playerName.equals(player1.getName())) {
             player1.wonPoint();
