@@ -2,8 +2,8 @@ package cn.xpbootcamp.tennis;
 
 public class TennisGame1 implements TennisGame {
 
-    private int m_score1 = 0;
-    private int m_score2 = 0;
+    private int player1Score = 0;
+    private int player2Score = 0;
 
     private String player1Name;
     private String player2Name;
@@ -23,9 +23,9 @@ public class TennisGame1 implements TennisGame {
 
     public void wonPoint(String playerName) {
         if (playerName.equals(player1Name)) {
-            m_score1 += 1;
+            player1Score += 1;
         } else {
-            m_score2 += 1;
+            player2Score += 1;
         }
     }
 
@@ -44,10 +44,10 @@ public class TennisGame1 implements TennisGame {
         int tempScore;
         for (int i = 1; i < 3; i++) {
             if (i == 1) {
-                tempScore = m_score1;
+                tempScore = player1Score;
             } else {
                 score.append("-");
-                tempScore = m_score2;
+                tempScore = player2Score;
             }
             switch (tempScore) {
                 case 0:
@@ -68,7 +68,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String getGameResultWhenAnyPlayerScoreOverFourPoint() {
-        int minusResult = m_score1 - m_score2;
+        int minusResult = player1Score - player2Score;
         if (minusResult == 1) {
             return ("Advantage player1");
         }
@@ -82,7 +82,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String getGameResultWhenScoreIsSame() {
-        switch (m_score1) {
+        switch (player1Score) {
             case 0:
                 return "Love-All";
             case 1:
@@ -95,10 +95,10 @@ public class TennisGame1 implements TennisGame {
     }
 
     private boolean anyPlayerScoreOverFourPoint() {
-        return m_score1 >= 4 || m_score2 >= 4;
+        return player1Score >= 4 || player2Score >= 4;
     }
 
     private boolean playerScoreIsSame() {
-        return m_score1 == m_score2;
+        return player1Score == player2Score;
     }
 }
