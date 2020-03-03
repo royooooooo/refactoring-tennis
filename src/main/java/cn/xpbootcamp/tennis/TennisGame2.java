@@ -18,13 +18,11 @@ public class TennisGame2 implements TennisGame {
             return getGameResultWhenScoreIsSame();
         }
 
-        if (oneScoreIsOver0AndAnotherIs0(player1Score, player2Score)) {
-            gameResult += getSpecialGradeByScore(player1Score) + "-" + getSpecialGradeByScore(player2Score);
-        }
-
-        if (oneScoreIsOverAnotherButLessThan4(
-            player1Score, player2Score)) {
-            gameResult = getSpecialGradeByScore(player1Score) + "-" + getSpecialGradeByScore(player2Score);
+        if (oneScoreIsOver0AndAnotherIs0(player1Score, player2Score) ||
+            oneScoreIsOverAnotherButLessThan4(
+                player1Score, player2Score)) {
+            gameResult +=
+                getSpecialGradeByScore(player1Score) + "-" + getSpecialGradeByScore(player2Score);
         }
 
         if (player1Score > player2Score && player2Score >= 3) {
