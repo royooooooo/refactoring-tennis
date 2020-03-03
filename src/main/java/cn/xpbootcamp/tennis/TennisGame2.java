@@ -18,67 +18,16 @@ public class TennisGame2 implements TennisGame {
     public String getGameResult() {
         String score = "";
         if (playerScoreIsSame()) {
-            score = getGameResultWhenScoreIsSame();
+            return getGameResultWhenScoreIsSame();
         }
 
-        if (P1point > 0 && P2point == 0) {
-            if (P1point == 1) {
-                P1res = "Fifteen";
-            }
-            if (P1point == 2) {
-                P1res = "Thirty";
-            }
-            if (P1point == 3) {
-                P1res = "Forty";
-            }
-
-            P2res = "Love";
-            score = P1res + "-" + P2res;
-        }
-        if (P2point > 0 && P1point == 0) {
-            if (P2point == 1) {
-                P2res = "Fifteen";
-            }
-            if (P2point == 2) {
-                P2res = "Thirty";
-            }
-            if (P2point == 3) {
-                P2res = "Forty";
-            }
-
-            P1res = "Love";
-            score = P1res + "-" + P2res;
+        if (oneScoreIsOver0AndAnotherIs0(P1point, P2point)) {
+            score += getSpecialGradeByScore(P1point) + "-" + getSpecialGradeByScore(P2point);
         }
 
-        if (P1point > P2point && P1point < 4) {
-            if (P1point == 2) {
-                P1res = "Thirty";
-            }
-            if (P1point == 3) {
-                P1res = "Forty";
-            }
-            if (P2point == 1) {
-                P2res = "Fifteen";
-            }
-            if (P2point == 2) {
-                P2res = "Thirty";
-            }
-            score = P1res + "-" + P2res;
-        }
-        if (P2point > P1point && P2point < 4) {
-            if (P2point == 2) {
-                P2res = "Thirty";
-            }
-            if (P2point == 3) {
-                P2res = "Forty";
-            }
-            if (P1point == 1) {
-                P1res = "Fifteen";
-            }
-            if (P1point == 2) {
-                P1res = "Thirty";
-            }
-            score = P1res + "-" + P2res;
+        if (oneScoreIsOverAnotherButLessThan4(
+            P1point, P2point)) {
+            score = getSpecialGradeByScore(P1point) + "-" + getSpecialGradeByScore(P2point);
         }
 
         if (P1point > P2point && P2point >= 3) {
@@ -96,6 +45,16 @@ public class TennisGame2 implements TennisGame {
             score = "Win for player2";
         }
         return score;
+    }
+
+    private boolean oneScoreIsOverAnotherButLessThan4(int onePlayerScore, int anotherPlayerScore) {
+        return (onePlayerScore > anotherPlayerScore && onePlayerScore < 4) || (
+            anotherPlayerScore > onePlayerScore && anotherPlayerScore < 4);
+    }
+
+    private boolean oneScoreIsOver0AndAnotherIs0(int onePlayerScore, int anotherPlayerScore) {
+        return (onePlayerScore > 0 && anotherPlayerScore == 0) || (anotherPlayerScore > 0
+            && onePlayerScore == 0);
     }
 
     private String getGameResultWhenScoreIsSame() {
