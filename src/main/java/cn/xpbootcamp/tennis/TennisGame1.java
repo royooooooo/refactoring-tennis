@@ -4,6 +4,7 @@ public class TennisGame1 implements TennisGame {
 
     private int m_score1 = 0;
     private int m_score2 = 0;
+
     private String player1Name;
     private String player2Name;
 
@@ -12,8 +13,16 @@ public class TennisGame1 implements TennisGame {
         this.player2Name = player2Name;
     }
 
+    public String getPlayer1Name() {
+        return player1Name;
+    }
+
+    public String getPlayer2Name() {
+        return player2Name;
+    }
+
     public void wonPoint(String playerName) {
-        if (playerName.equals("player1")) {
+        if (playerName.equals(player1Name)) {
             m_score1 += 1;
         } else {
             m_score2 += 1;

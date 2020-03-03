@@ -1,14 +1,13 @@
 package cn.xpbootcamp.tennis;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-
-import java.util.Arrays;
-import java.util.Collection;
-
-import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class TennisTest {
@@ -82,7 +81,16 @@ public class TennisTest {
     @Test
     public void checkAllScoresTennisGame1() {
         TennisGame1 game = new TennisGame1("player1", "player2");
-        checkAllScores(game);
+        int highestScore = Math.max(this.player1Score, this.player2Score);
+        for (int i = 0; i < highestScore; i++) {
+            if (i < this.player1Score) {
+                game.wonPoint(game.getPlayer1Name());
+            }
+            if (i < this.player2Score) {
+                game.wonPoint(game.getPlayer2Name());
+            }
+        }
+        assertEquals(this.expectedScore, game.getScore());
     }
 
     @Test
