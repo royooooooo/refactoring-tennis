@@ -2,30 +2,27 @@ package cn.xpbootcamp.tennis;
 
 public class TennisGame1 implements TennisGame {
 
-    private int player1Score = 0;
-    private int player2Score = 0;
-
-    private String player1Name;
-    private String player2Name;
+    private Player player1;
+    private Player player2;
 
     public TennisGame1(String player1Name, String player2Name) {
-        this.player1Name = player1Name;
-        this.player2Name = player2Name;
+        this.player1 = new Player(player1Name);
+        this.player2 = new Player(player2Name);
     }
 
-    public String getPlayer1Name() {
-        return player1Name;
+    public Player getPlayer1() {
+        return player1;
     }
 
-    public String getPlayer2Name() {
-        return player2Name;
+    public Player getPlayer2() {
+        return player2;
     }
 
     public void wonPoint(String playerName) {
-        if (playerName.equals(player1Name)) {
-            player1Score += 1;
+        if (playerName.equals(player1.getName())) {
+            player1.wonPoint();
         } else {
-            player2Score += 1;
+            player2.wonPoint();
         }
     }
 
@@ -44,10 +41,10 @@ public class TennisGame1 implements TennisGame {
         int tempScore;
         for (int i = 1; i < 3; i++) {
             if (i == 1) {
-                tempScore = player1Score;
+                tempScore = player1.getScore();
             } else {
                 score.append("-");
-                tempScore = player2Score;
+                tempScore = player2.getScore();
             }
             switch (tempScore) {
                 case 0:
@@ -68,7 +65,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String getGameResultWhenAnyPlayerScoreOverFourPoint() {
-        int minusResult = player1Score - player2Score;
+        int minusResult = player1.getScore() - player2.getScore();
         if (minusResult == 1) {
             return ("Advantage player1");
         }
@@ -82,7 +79,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String getGameResultWhenScoreIsSame() {
-        switch (player1Score) {
+        switch (player1.getScore()) {
             case 0:
                 return "Love-All";
             case 1:
@@ -95,10 +92,10 @@ public class TennisGame1 implements TennisGame {
     }
 
     private boolean anyPlayerScoreOverFourPoint() {
-        return player1Score >= 4 || player2Score >= 4;
+        return player1.getScore() >= 4 || player2.getScore() >= 4;
     }
 
     private boolean playerScoreIsSame() {
-        return player1Score == player2Score;
+        return player1.getScore() == player2.getScore();
     }
 }
