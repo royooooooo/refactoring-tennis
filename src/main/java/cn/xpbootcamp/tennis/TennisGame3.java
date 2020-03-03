@@ -14,23 +14,33 @@ public class TennisGame3 implements TennisGame {
         String s;
         int player1Score = player1.getScore();
         int player2Score = player2.getScore();
+        if (isSameScore()) {
+            return getGameResultWhenScoreIsSame();
+        }
+
         if (player1Score < 4 && player2Score < 4 && !(player1Score + player2Score == 6)) {
-            if (player1Score == player2Score) {
-                return getSpecialGradeByScore(player1Score) + "-All";
-            }
             return getSpecialGradeByScore(player1Score) + "-" + getSpecialGradeByScore(
                 player2Score);
         }
 
-        if (player1Score == player2Score) {
-            return "Deuce";
-        }
         String winOrAdvantagePlayerName =
             player1Score > player2Score ? player1.getName() : player2.getName();
+
         if (onePlayerIsAdvantage(player1Score, player2Score)) {
             return "Advantage " + winOrAdvantagePlayerName;
         }
         return "Win for " + winOrAdvantagePlayerName;
+    }
+
+    private String getGameResultWhenScoreIsSame() {
+        if (player1.getScore() < 3) {
+            return getSpecialGradeByScore(player1.getScore()) + "-All";
+        }
+        return "Deuce";
+    }
+
+    private boolean isSameScore() {
+        return player1.getScore() == player2.getScore();
     }
 
     private boolean onePlayerIsAdvantage(int player1Score, int player2Score) {
