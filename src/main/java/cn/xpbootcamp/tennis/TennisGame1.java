@@ -21,15 +21,13 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        String score;
-        if (m_score1 == m_score2) {
-            score = getGameResultWhenScoreIsSame();
-        } else if (anyPlayerScoreOverFourPoint()) {
-            score = getGameResultWhenAnyPlayerScoreOverFourPoint();
-        } else {
-            score = getGameResultWhenNormalWay();
+        if (playerScoreIsSame()) {
+            return getGameResultWhenScoreIsSame();
         }
-        return score;
+        if (anyPlayerScoreOverFourPoint()) {
+            return getGameResultWhenAnyPlayerScoreOverFourPoint();
+        }
+        return getGameResultWhenNormalWay();
     }
 
     private String getGameResultWhenNormalWay() {
@@ -61,41 +59,37 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String getGameResultWhenAnyPlayerScoreOverFourPoint() {
-        StringBuilder score;
         int minusResult = m_score1 - m_score2;
         if (minusResult == 1) {
-            score = new StringBuilder("Advantage player1");
-        } else if (minusResult == -1) {
-            score = new StringBuilder("Advantage player2");
-        } else if (minusResult >= 2) {
-            score = new StringBuilder("Win for player1");
-        } else {
-            score = new StringBuilder("Win for player2");
+            return ("Advantage player1");
         }
-        return score.toString();
+        if (minusResult == -1) {
+            return ("Advantage player2");
+        }
+        if (minusResult >= 2) {
+            return ("Win for player1");
+        }
+        return ("Win for player2");
+    }
+
+    private String getGameResultWhenScoreIsSame() {
+        switch (m_score1) {
+            case 0:
+                return "Love-All";
+            case 1:
+                return "Fifteen-All";
+            case 2:
+                return "Thirty-All";
+            default:
+                return "Deuce";
+        }
     }
 
     private boolean anyPlayerScoreOverFourPoint() {
         return m_score1 >= 4 || m_score2 >= 4;
     }
 
-    private String getGameResultWhenScoreIsSame() {
-        StringBuilder score;
-        switch (m_score1) {
-            case 0:
-                score = new StringBuilder("Love-All");
-                break;
-            case 1:
-                score = new StringBuilder("Fifteen-All");
-                break;
-            case 2:
-                score = new StringBuilder("Thirty-All");
-                break;
-            default:
-                score = new StringBuilder("Deuce");
-                break;
-
-        }
-        return score.toString();
+    private boolean playerScoreIsSame() {
+        return m_score1 == m_score2;
     }
 }
